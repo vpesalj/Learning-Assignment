@@ -41,7 +41,6 @@ class TeamService {
           var errorMessage = error.errors.map((e) => e.message);
           reject(errorMessage);
         });
-      v;
     });
   }
 

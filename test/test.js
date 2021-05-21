@@ -6,16 +6,17 @@ let server = require("../server");
 chai.use(chaiHttp);
 
 describe("POST /teams/users", () => {
-  it("it should add user to team", (done) => {
+  it("it should add an existing user to an existing team", (done) => {
     chai
       .request(server)
-      .post("/api/teams")
+      .post("/api/teams/users")
       .send({
-        userId: 18, //add another user, this one is added after testing
-        teamId: 7,
+        //create user and team before this
+        userId: 1,
+        teamId: 1,
       })
       .end((err, res) => {
-        res.should.have.status(400); //400 because it exists, replace with 200 later
+        res.should.have.status(201);
         done();
       });
   });
@@ -24,7 +25,8 @@ describe("POST /teams/users", () => {
       .request(server)
       .post("/api/teams/users")
       .send({
-        userId: 10,
+        //create user and team, add user to a team before this test
+        userId: 2,
         teamId: 2,
       })
       .end((err, res) => {
